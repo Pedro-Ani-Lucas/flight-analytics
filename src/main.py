@@ -6,8 +6,6 @@ def readerFlightsCSV():
 
         readerFlights = csv.DictReader(arquivo)
 
-        print(f"Leitura concluída.")
-
         voos = list(readerFlights)
 
         return voos
@@ -15,7 +13,7 @@ def readerFlightsCSV():
 # 2- Contar quantos voos existem.
 def countFlightsExist():
     voos = readerFlightsCSV()
-
+    contador = 0
     for linha in voos:
         contador += 1
     return print(f"Há {contador} voos totais.")
@@ -40,15 +38,13 @@ def calcDelay():
 
     countFlightes = 0
     totalDelayFlightes = 0
-    maior = 0
-    menor = 0
+    maior = int(voos[0]["delay_minutes"])
+    menor = int(voos[0]["delay_minutes"])
     media = 0 
 
     for linha in voos:
         if int(linha["delay_minutes"]) > maior:
             maior = int(linha["delay_minutes"])
-        elif int(linha["delay_minutes"]) >= menor and menor == 0:
-            menor = int(linha["delay_minutes"])
         elif int(linha["delay_minutes"]) < menor:
             menor = int(linha["delay_minutes"])
 
@@ -57,12 +53,15 @@ def calcDelay():
 
     media = totalDelayFlightes/countFlightes
 
-    return maior, menor, media
+    return print(f"Maior minutos de delay: {maior} | Menor minutos de delay: {menor} | Média de Delay por voo: {media:.2f}")
 
 # 5 - Descobrir a companhia com maior quantidade de voos.
 
 def mostQuantityFlightesCompany():
     voos = readerFlightsCSV()
+    golFlightes = 0
+    azulFlightes = 0
+    latamFlightes = 0
 
     for linha in voos:
         if linha["airline"] == "GOL":
@@ -82,3 +81,7 @@ def mostQuantityFlightesCompany():
 # TESTE PRÁTICO
 
 readerFlightsCSV()
+countFlightsExist()
+totalPassengers()
+calcDelay()
+mostQuantityFlightesCompany()
