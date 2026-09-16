@@ -18,6 +18,5 @@ df_limpo = df[(~df["delay_minutes"].isna()) &
 
 # 3 - Resolver a coluna Passengers sobre o valor NULL
 
-df_limpo["passengers"] = df[~df["delay_minutes"].isna()]
-
+df_limpo = df_limpo[~df_limpo["passengers"].isna()]
 
