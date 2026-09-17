@@ -11,6 +11,9 @@ df_sujo = pd.read_csv(caminho_csv_flights_raw)
 
 df_limpo = limpeza_registros_voos(df_sujo)
 
-print(f"Quantidade de registros: {len(df_sujo)}")
-print(f"Quantidade de registros: {len(df_limpo)}")
-print(f"Quantidade de registros removidos: {len(df_sujo)-len(df_limpo)}")
+#Saí de SRC e entra na pasta DATA por conta do .parent e coloca um nome pro arquivo novo
+caminho_saida = pasta_do_script.parent / "data" / "flights_limpo.csv"
+#Confere se realmente existe a pasta Data para então entrar nela.
+caminho_saida.parent.mkdir(parents=True, exist_ok=True)
+#Agora lança o dataframe, convertido em csv, para a pasta correta.
+df_limpo.to_csv(caminho_saida, index=False)
