@@ -20,6 +20,7 @@ def limpeza_registros_voos(df):
 # Condicional para conferir se está chamando o arquivo diretamente ou importando.
 if __name__ == "__main__":
         pasta_do_script = Path(__file__).resolve().parent
-        caminho_csv = pasta_do_script.parent / "data" / "flights_raw.csv"
+        caminho_csv = pasta_do_script.parent / "data" / "csv" / "flights_raw.csv"
+        caminho_csv.parent.mkdir(parents=True, exist_ok=True)
         df = pd.read_csv(caminho_csv)
         print(limpeza_registros_voos(df))
