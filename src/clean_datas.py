@@ -1,9 +1,6 @@
 import pandas as pd
 from pathlib import Path
 
-pasta_do_script = Path(__file__).resolve().parent
-caminho_csv = pasta_do_script.parent / "data" / "flights_raw.csv"
-
 def limpeza_registros_voos(df):
         df = df.copy()
 
@@ -19,3 +16,10 @@ def limpeza_registros_voos(df):
         df_limpo = df[~df["passengers"].isna()]
 
         return df_limpo 
+
+# Condicional para conferir se está chamando o arquivo diretamente ou importando.
+if __name__ == "__main__":
+        pasta_do_script = Path(__file__).resolve().parent
+        caminho_csv = pasta_do_script.parent / "data" / "flights_raw.csv"
+        df = pd.read_csv(caminho_csv)
+        print(limpeza_registros_voos(df))
