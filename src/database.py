@@ -27,12 +27,26 @@ CREATE TABLE IF NOT EXISTS flights (
     date TEXT NOT NULL
 )
 """
-
-inserir_dados = """
-
+visualizar_tabela_flights = """
+SELECT * FROM flights;
 """
 
-conexao.execute(criar_tabela)
-conexao.commit()
+maior_indice_percentual_atrasos_por_companhia = """
+SELECT airline, 100*AVG(CASE WHEN delay_minutes > 0 
+THEN 1 ELSE 0 
+END) AS atrasados
+FROM flights
+GROUP BY airline
+ORDER BY atrasados DESC
+LIMIT 1;
+"""
+
+resultado = conexao.execute(maior_indice_percentual_atrasos_por_companhia)
+dados = resultado.fetchall()
+print(dados)
+
+#df_limpo.to_sql("flights", conexao, if_exists="append", index=False)
+
+#conexao.commit()
 
 conexao.close()
