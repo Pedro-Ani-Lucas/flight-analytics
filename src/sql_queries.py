@@ -18,3 +18,33 @@ def quantidades_voos_por_companhia():
     )
 
     print(resultado_quantidade.fetchall())
+
+    conexao.close()
+
+def media_de_atrasos_geral():
+    conexao = sqlite3.connect(caminho_db_flights)
+    cursor = conexao.cursor()
+
+    resultado_media = conexao.execute(
+        """SELECT AVG(delay_minutes)
+        FROM flights;"""
+    )
+
+    print(resultado_media.fetchall())
+
+    conexao.close()
+
+def media_atrasos_por_companhia():
+    conexao = sqlite3.connect(caminho_db_flights)
+    cursor = conexao.cursor()
+
+    resultado_media_por_companhia = conexao.execute(
+        """SELECT airline, AVG(delay_minutes)
+        FROM flights
+        GROUP BY airline
+        ORDER BY AVG(delay_minutes) DESC;"""
+    )
+
+    print(resultado_media_por_companhia.fetchall())
+
+    conexao.close()
