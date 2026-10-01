@@ -1,6 +1,7 @@
 import pandas as pd
 from pathlib import Path
 from clean_datas import limpeza_registros_voos
+from analyzer import maiorindicepercentual_atrasoscompanhia
 
 #CAMINHOS
 pasta_do_script = Path(__file__).resolve().parent
