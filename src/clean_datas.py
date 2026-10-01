@@ -1,6 +1,7 @@
 import pandas as pd
 from pathlib import Path
 
+#Função para limpeza do dataframe de voos
 def limpeza_registros_voos(df):
         df = df.copy()
 
