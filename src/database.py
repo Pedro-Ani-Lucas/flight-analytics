@@ -31,7 +31,13 @@ def criar_tabela_flights(conexao):
     cursor.execute(criar_tabela)
     conexao.commit()
 
+def inserir_dados_para_banco(df, conexao):
+    
+    df.to_sql("flights", conexao, if_exists="append", index=False)
+    print(f"Inserção ao banco de dados concluída.")
 
 
-df_limpo.to_sql("flights", conexao, if_exists="append", index=False)
-
+def load(df_limpo):
+    conexao = criar_conexao_sqlite()
+    criar_tabela_flights(conexao)
+    inserir_dados_para_banco(df_limpo, conexao)
