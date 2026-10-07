@@ -82,3 +82,35 @@ def pior_media_de_atraso_por_aeroporto_destino():
     print(pior_atraso_aeroportodestino.fetchall())
 
     conexao.close()
+
+def visualizar_tabela_inteira():
+    conexao = sqlite3.connect(caminho_db_flights)
+
+    visualizar_tabela_flights = conexao.execute( 
+    """
+    SELECT * FROM flights;
+    """
+    )
+
+    print(visualizar_tabela_flights.fetchall())
+    
+    conexao.close()
+
+def visualizar_maior_indice_percentual_atrasos_por_companhia():
+
+    conexao = sqlite3.connect(caminho_db_flights)
+
+    maior_indice_percentual_atrasos_por_companhia = conexao.execute(
+    """
+    SELECT airline, 100*AVG(CASE WHEN delay_minutes > 0 
+    THEN 1 ELSE 0 
+    END) AS atrasados
+    FROM flights
+    GROUP BY airline
+    ORDER BY atrasados DESC
+    LIMIT 1;
+    """
+    )
+    print(maior_indice_percentual_atrasos_por_companhia.fetchall())
+    
+    conexao.close()

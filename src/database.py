@@ -27,19 +27,7 @@ CREATE TABLE IF NOT EXISTS flights (
     date TEXT NOT NULL
 )
 """
-visualizar_tabela_flights = """
-SELECT * FROM flights;
-"""
 
-maior_indice_percentual_atrasos_por_companhia = """
-SELECT airline, 100*AVG(CASE WHEN delay_minutes > 0 
-THEN 1 ELSE 0 
-END) AS atrasados
-FROM flights
-GROUP BY airline
-ORDER BY atrasados DESC
-LIMIT 1;
-"""
 
 resultado = conexao.execute(maior_indice_percentual_atrasos_por_companhia)
 dados = resultado.fetchall()
