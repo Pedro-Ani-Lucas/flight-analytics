@@ -36,8 +36,15 @@ def inserir_dados_para_banco(df, conexao):
     df.to_sql("flights", conexao, if_exists="append", index=False)
     print(f"Inserção ao banco de dados concluída.")
 
+def inserir_dataframelimpo_para_csv(df, caminho):
+    
+    caminho.parent.mkdir(parents=True, exist_ok=True)
 
-def load(df_limpo):
+    df.to_csv(caminho, sep=',', index=False, encoding='utf-8')
+
+def load(df_limpo, caminho_csv):
+
     conexao = criar_conexao_sqlite()
     criar_tabela_flights(conexao)
     inserir_dados_para_banco(df_limpo, conexao)
+    inserir_dataframelimpo_para_csv(df_limpo, caminho_csv)

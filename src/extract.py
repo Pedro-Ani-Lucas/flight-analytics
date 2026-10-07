@@ -4,7 +4,7 @@ from pathlib import Path
 #Função responsável por extrair o caminho que será usado.
 def extrair_csv_voos():
     pasta_do_script = Path(__file__).resolve().parent
-    caminho_csv = pasta_do_script / "data" / "csv" / "flights_raw.csv"
+    caminho_csv = pasta_do_script.parent / "data" / "csv" / "raw" / "flights_raw.csv"
     return leitor_csv(caminho_csv)
 
 #Função responsável por ler o caminho e transformar em DataFrame
