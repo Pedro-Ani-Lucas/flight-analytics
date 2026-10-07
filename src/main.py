@@ -1,4 +1,3 @@
-import pandas as pd
 from pathlib import Path
 from extract import extrair_voos
 from transform import transformar_df_voos
@@ -6,7 +5,7 @@ from load import load
 
 #CAMINHOS
 pasta_do_script = Path(__file__).resolve().parent
-caminho_csv_processed = pasta_do_script.parent / "data" / "csv" / "processed" / "flights_limpo.csv"
+caminho_csv_processed = pasta_do_script.parent / "data" / "csv" / "processed" / "flights_processed.csv"
 
 def main():
     df_raw = extrair_voos()
