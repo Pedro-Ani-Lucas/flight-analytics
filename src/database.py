@@ -2,39 +2,36 @@ import pandas as pd
 import sqlite3
 from pathlib import Path
 
-pasta_do_script = Path(__file__).resolve().parent
+def criar_conexao_sqlite():
 
-caminho_db_flights = pasta_do_script.parent / "database" / "flights.db"
-caminho_db_flights.parent.mkdir(parents=True, exist_ok=True)
+    pasta_do_script = Path(__file__).resolve().parent
 
-caminho_csv_flights_limpo = pasta_do_script.parent / "data" / "csv" / "flights_limpo.csv"
+    caminho_db_flights = pasta_do_script.parent / "database" / "flights.db"
+    caminho_db_flights.parent.mkdir(parents=True, exist_ok=True)
 
-df_limpo = pd.read_csv(caminho_csv_flights_limpo)
+    conexao = sqlite3.connect(caminho_db_flights)
 
-#Conectar com o banco de dados
-conexao = sqlite3.connect(caminho_db_flights)
+    return conexao
 
-cursor = conexao.cursor()
+def criar_tabela_flights(conexao):
+    cursor = conexao.cursor()
 
-criar_tabela = """
-CREATE TABLE IF NOT EXISTS flights (
-    flight_id INTEGER PRIMARY KEY,
-    airline TEXT NOT NULL,
-    origin TEXT NOT NULL,
-    destination TEXT NOT NULL,
-    delay_minutes INTEGER NOT NULL,
-    passengers INTEGER NOT NULL,
-    date TEXT NOT NULL
-)
-"""
+    criar_tabela = """
+    CREATE TABLE IF NOT EXISTS flights (
+        flight_id INTEGER PRIMARY KEY,
+        airline TEXT NOT NULL,
+        origin TEXT NOT NULL,
+        destination TEXT NOT NULL,
+        delay_minutes INTEGER NOT NULL,
+        passengers INTEGER NOT NULL,
+        date TEXT NOT NULL
+    )
+    """
+
+    cursor.execute(criar_tabela)
+    conexao.commit()
 
 
-resultado = conexao.execute(maior_indice_percentual_atrasos_por_companhia)
-dados = resultado.fetchall()
-print(dados)
 
-#df_limpo.to_sql("flights", conexao, if_exists="append", index=False)
+df_limpo.to_sql("flights", conexao, if_exists="append", index=False)
 
-#conexao.commit()
-
-conexao.close()
